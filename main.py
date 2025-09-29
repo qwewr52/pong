@@ -20,7 +20,6 @@ class PuzzlePiece(QLabel):
         super().__init__(parent)
         self.setPixmap(pixmap.scaled(100, 100, Qt.AspectRatioMode.KeepAspectRatio))
         self.correct_position = correct_position
-        self.setFixedSize(110, 110)
         self.setStyleSheet("border: 2px solid #333; background-color: white; margin: 2px;")
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.setScaledContents(True)
@@ -71,7 +70,6 @@ class CaptchaWidget(QWidget):
         self.image_paths = image_paths
         self.num_pieces = len(image_paths)
         self.target_labels = []
-        self.pieces = []
         self.correct_positions = list(range(self.num_pieces))
         self.is_completed = False
         self.on_success = None
@@ -107,7 +105,6 @@ class CaptchaWidget(QWidget):
         
         self.target_widget = QWidget()
         self.target_layout = QGridLayout(self.target_widget)
-        self.target_layout.setSpacing(5)
         self.target_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         right_layout.addWidget(self.target_widget)
 
@@ -136,7 +133,6 @@ class CaptchaWidget(QWidget):
             except:
                 pixmap = QPixmap(100, 100)
                 color = QColor(random.randint(50, 200), random.randint(50, 200), random.randint(50, 200))
-                pixmap.fill(color)
                 images.append(pixmap)
 
         self.pieces = [PuzzlePiece(img, i, self) for i, img in enumerate(images)]
@@ -490,4 +486,5 @@ if __name__ == "__main__":
     window = AuthWindow()
     window.show()
     sys.exit(app.exec())
+
     
